@@ -1,0 +1,30 @@
+.form-horizontal .form-group {
+  margin-right: 0px !important;
+  margin-left:0px !important;
+}
+.form-control {
+  width: 100% !important;
+  border: none !important;
+  border-bottom: 1px solid #333333 !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  color:#333333 !important;
+}
+.signin {
+  background: #A61F36;
+  color:white;
+  font-size:0.875em;
+  font-family: 'Open Sans';
+  border-radius: 4px;
+  width:100%;
+  margin: 30px 0px;
+}
+.fpwd {
+  text-decoration: underline;
+}
+.loginForm {
+  margin-top:25px;
+}
+.loginModal .modal-body .pull-right {
+  display: grid !important;
+}

@@ -1,0 +1,31 @@
+<div class="app-title">
+  <a  routerLink="/" >
+    <img src="assets/pact_logo.png" alt="Pact Home Page" class="logo_img" height="60%" style="margin-top: 10px;" />
+  </a>
+  <ul class="nav-ul">
+    <li  [ngClass]="{'active':showErrorInfoPage && !settings}"><a  (click)="navigateToHome();settings = false">Home</a></li>
+    <li   [ngClass]="{'active':!showErrorInfoPage && !settings}"  *ngIf="SuperUser === 'superUser'"><a  (click)="navigateToBugTracker();settings = false"> Bug Tracking</a></li>
+  </ul>
+  <div style="float:right;display: flex">
+   <!-- <div class="search"><input type="text" placeholder="Search for Element Source" class="form-control" [(ngModel)]="search" (ngModelChange)="searchByTag(search,'TagName')"/>
+      <span class="glyphicon glyphicon-search"></span>
+    </div>-->
+    <div class="home-icons-right" [ngClass]="{'active':settings}" *ngIf="SuperUser === 'superUser'">
+      <span class="glyphicon glyphicon-cog"  (click)="navigateToSettings();settings = true"></span>
+    </div>
+    <div class="home-icons-right">
+      <span class="glyphicon glyphicon-user"></span>
+    </div>
+    <div  class="home-icons-right">
+      <span class="glyphicon glyphicon-off" (click)="logout()" ></span>
+    </div>
+  </div>
+
+</div>
+<router-outlet></router-outlet>
+<!--<div class="row">
+  <router-outlet></router-outlet>
+</div>-->
+<div class="footer">
+  Copyright &copy; 2017 People Tech
+</div>

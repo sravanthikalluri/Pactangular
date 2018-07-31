@@ -1,0 +1,9 @@
+.home-icons-right {
+  cursor: pointer;
+}
+.home-icons-right:hover {
+  color:#A61F36 !important;
+}
+.activeicon .glyphicon {
+  color:#A61F36 !important;
+}

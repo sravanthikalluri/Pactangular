@@ -1,0 +1,172 @@
+
+<div class="row">
+  <!--<div class="col-md-3 left-pane">
+    <ul class="nav  nav-stacked">
+      <li ><a data-toggle="tab" href="#addUsers" class="active" (click)="show = true">Add Users</a></li>
+      <li><a data-toggle="tab" href="#Integrate" (click)="show = false">Integrate</a></li>
+    </ul>
+  </div>-->
+<!--  <div class="col-md-9 right-pane">
+    <div class="tab-content">
+      <div id="addUsers"  class="tab-pane in active">
+        <h3>Give access to users</h3>
+        <div class="bug-info">
+          <form class="form-horizontal" [formGroup]="addUser">
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">First name</label>
+              <div class="col-sm-9">
+                <input type="text"  class="form-control" formControlName="fname" autofocus>
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Last Name</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="lname">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Email</label>
+              <div class="col-sm-9">
+                <input type="email" class="form-control" formControlName="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Designation</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="des">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-9 col-sm-offset-3">
+                <button type="submit" class="btn" style="color:white;text-decoration:none;  background: #A61F36;" (click)="createUser()">Add User</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <div id="Integrate" class="tab-pane">
+        <h3>Integration with Jira/Visual Studio</h3>
+        <form class="form-horizontal" [formGroup]="integrateJIRA">
+          <div class="form-group">
+            <label  class="col-sm-3 control-label">Bug Tracking Source</label>
+            <div class="col-sm-9">
+              <input type="text"  class="form-control" formControlName="bugts" autofocus>
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-sm-3 control-label">Select Source Type</label>
+            <div class="col-sm-9">
+              <select class="form-control" formControlName="srcType">
+                <option value="JIRA">JIRA</option>
+                <option value="Visual Studio">Visual Studio</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-sm-3 control-label">Source Server</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" formControlName="srcServer">
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-sm-3 control-label">User Name</label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control" formControlName="uname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" formControlName="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+              <button type="submit" class="btn" style="color:white;text-decoration:none;  background: #A61F36;" (click)="test()">Test Connection</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  &lt;!&ndash;  <div class="row" *ngIf="show && usersList">
+      <h3>List of users having access</h3>
+      <div class="card" *ngFor="let ul of usersList">
+        <div class="profile-pic">
+
+        </div>
+        <div style="padding: 5px 15px;">
+          <span class="name">{{ul.fname}}  {{ul.lname}}</span>
+          <span class="status">Active</span>
+          <p class="login-time">Last Login 15:30 PM today</p>
+        </div>
+        <div>
+          <a >Remove</a>
+        </div>
+      </div>
+    </div>&ndash;&gt;
+  </div>-->
+
+  <div class="col-sm-12" style="display:inline-block" *ngIf="!isAddUser">
+    <h3 style="float:left">Users Information</h3>
+    <div class="row">
+      <div class="col-sm-12" style="padding:0px">
+        <div class="col-sm-4 card" *ngFor="let ul of usersList">
+          <div style="float:right">
+           <!-- <a>Remove</a>-->
+          </div>
+          <div class="profile-pic">
+              <div>{{ul.fname.charAt(0)}}{{ul.lname.charAt(0)}}</div>
+          </div>
+          <div class="name">{{ul.fname}}  {{ul.lname}}</div>
+          <div class="login-time">
+            <div>{{ul.des}}</div>
+            <p>Last Login 15:30 PM today</p>
+          </div>
+        </div>
+        <div class="col-sm-4 card" (click)="onAddUsers()" tabindex="0" role="link" (keydown)="$event.keyCode == 13?onAddUsers():''">
+          <span class="glyphicon glyphicon-plus"></span>
+          <h4>Add Users</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  class="col-sm-12" style="display:inline-block" *ngIf="isAddUser">
+    <h3>Give Access to User</h3>
+      <div class="bug-info">
+        <form class="form-horizontal" [formGroup]="addUser">
+          <div class="form-group">
+            <label  class="col-sm-2 control-label" for="FirstName">First name</label>
+            <div class="col-sm-6">
+              <input type="text"  class="form-control" formControlName="fname" id="FirstName" autofocus>
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-sm-2 control-label" for="LastName">Last Name</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="lname" id="LastName" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-sm-2 control-label" for="Email">Email</label>
+            <div class="col-sm-6">
+              <input type="email" class="form-control" formControlName="email" id="Email" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-sm-2 control-label" for="Designation">Designation</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="des" id="Designation">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-2">
+              <button type="submit" class="btn" style="color:white;text-decoration:none;  background: #A61F36;" (click)="createUser()" [disabled]="!addUser.valid" [attr.aria-disabled]="!addUser.valid">Add User</button>
+              <button type="submit" class="btn" style="color:white;text-decoration:none;  background: #A61F36;" (click)="cancelUser()">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+

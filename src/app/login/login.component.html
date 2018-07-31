@@ -1,0 +1,38 @@
+<div>
+  <modal #loginModal class="loginModal" aria-labelledby="01" aria-describedby="login-modal" id="loginModal"
+         [keyboard]="false" [backdrop]="'static'" [animation]="false" (onDismiss)="closeModal()" autofocus>
+    <!--<modal-header [show-close]="true" (click)="closeModal()" id="close" #close>
+
+    </modal-header>-->
+    <a class="close"  role="button" (click)="closeModal()" id="close" href="#"  tabindex="0" >
+      <span aria-hidden="true" >×</span>
+    </a>
+    <modal-body class="row">
+
+        <div class="pull-left col-sm-6">
+         <img src="assets/pact_login.png" alt="null" class="logo_img" height="60%" style="margin-top: 10px;" />
+        </div>
+        <div class="pull-right col-sm-6">
+          <h2 style="color:#A61F36" id="01">Login</h2>
+        <!--  <ul class="nav-ul">
+              <li (click)="selectUser('demoUser')"  [ngClass]="{'active':isactive}"><a (click)="isactive= !isactive">Demo User</a></li>
+              <li (click)="selectUser('superUser')"  [ngClass]="{'active':!isactive}"><a (click)="isactive= !isactive">Super User</a></li>
+          </ul>-->
+          <form class="form-horizontal loginForm" [formGroup]="loginForm">
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="email" placeholder="User Name" aria-label="User Name">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-label="Password">
+            </div>
+            <div class="form-group">
+              <div>
+                <button type="submit" class="btn  signin" (click)="getToken(loginForm)" (keydown)="$event.keyCode === 9?getFocus($event):''"  >Sign in</button>
+              <!--  <a class="fpwd" href="#" tabindex="0">Forgot Password? </a>-->
+              </div>
+            </div>
+          </form>
+        </div>
+    </modal-body>
+  </modal>
+</div>

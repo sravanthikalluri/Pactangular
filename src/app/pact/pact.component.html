@@ -1,0 +1,277 @@
+
+<header class="app-title" role="banner">
+  <div>
+    <a href="#mainContent" class="skip" >Skip To Main Content</a></div>
+  <div tabindex="0">
+    <a  href="#"  role="link" class="logo-image">
+      <img src="assets/pact_home.png" alt="Accessibility Pact Home Page" class="logo_img"  style="margin-top: 10px;" />
+    </a>
+  </div>
+  <div role="list" class="left-icons">
+    <div role="listitem" tabindex="0">
+      <div class="glyphicon glyphicon-triangle-left" style="left:5px"></div>
+      <a (click)="navigateToBackPage()" (keydown)="$event.keyCode === 13 ?navigateToBackPage():''"  role="link" style="color:#A61F36;text-decoration: underline">Back</a>
+    </div>
+    <div  role="listitem"  [ngClass]="{'active-listItem':showErrorInfoPage}" tabindex="0">
+      <span class="glyphicon glyphicon-home" style="left:-5px"></span>
+      <a  (click)="showHome()" (keydown)="$event.keyCode === 13?showHome():''"  role="link" style="cursor:pointer">Home</a>
+    </div>
+  </div>
+<div style="float:right;display: flex">
+  <div class="home-icons-right"  tabindex="-1">
+    <div *ngIf="disableUrl === 'SuperUser'"   [ngClass]="{'active-listItem':showBugTracking}" class="home-icon-list">
+      <a role="link" aria-disabled="true" style="margin:10px"> Bug Tracking</a><!--(click)="showTrackBugs()" (keydown)="$event.keyCode == 13?showTrackBugs():''"-->
+    </div>
+  </div>
+  <div class="dropdown">
+    <div class="home-icons-right" style="border:none !important;display: flex;" data-toggle="dropdown" tabindex="0" aria-haspopup="true">
+      <div class="profile-pic">
+        <div>{{disableUrl.charAt(0) + 'U'}}</div>
+      </div>
+      <div class="user-profile">{{disableUrl}}</div>
+      <span class="glyphicon glyphicon-menu-down" style="left:65px;top:23px !important;font-size: 0.8125em !important;height:20px"></span>
+    </div>
+    <ul class="dropdown-menu">
+      <li>
+        <a  tabindex="-1" role="link" aria-disabled="true" style="cursor: default !important;" ><!--(click)="showSettings()" (keydown)="$event.keyCode === 13?showSettings():''"-->
+          <div [ngClass]="{'activeicon':showIntegrationPage}" *ngIf="disableUrl === 'SuperUser'">
+            <span class="glyphicon glyphicon-cog" ></span>
+            <span style="color:#666666">Settings</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a (click)="logout()" role="link" (keydown)="$event.keyCode === 13?logout():''"  tabindex="0">
+          <span class="glyphicon glyphicon-off"  ></span>
+          <span style="color:#666666">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</header>
+  <div class="row" role="main" id="mainContent" *ngIf="!isLoading">
+    <div class="col-sm-3 left-pane">
+      <div class="pact-row row">
+        <div class="row-heading" role="heading" aria-level="2">Website</div>
+          <div class="row-heading-data">{{parentUrl}}
+        </div>
+        <div class="row-heading" role="heading" aria-level="2">Total Pages
+        </div>
+        <div class="row-heading-data">{{totalPages > 0 ? totalPages: 0 }}</div>
+      </div>
+      <div class="viewd-count row">
+        <div class="total-pages-view-count" aria-hidden="true" >{{totalPages > 0 ? visitedLinksCount+1: 0}}</div>
+        <div style="margin-left: 10px;width:90%">
+          <div role="heading" aria-level="2">
+          <h4 role="presentation" >Total Viewed</h4></div><span class="screen-reader">{{totalPages > 0 ? visitedLinksCount+1: 0}}</span>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%' : (visitedLinksCount+1)*100/(totalPages)}"
+                 [attr.aria-valuemin]="0" [attr.aria-valuemax]="totalPages-1" [attr.aria-valuenow]="visitedLinksCount ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row site-map">
+        <div role="heading" aria-level="2">
+          <h4 role="presentation">Site Map</h4>
+        </div>
+        <div class="pages-links">
+          <ul role="list">
+          <li  role="listitem" [ngClass]="{'active-listItem': pageNo === null}" *ngIf="totalPages > 0">
+            <div [ngClass]="{'active-glyphicon': pageNo === null || visited}" class="glyphicon glyphicon-ok-circle">
+            </div>
+            <div style="margin-left: 15px">
+              <span [ngClass]="{'active': pageNo === null  }" id="pg1">PAGE 1</span>
+              <div>
+                <a (click)="getPageInformation(parentUrl,null);visited = true" tabindex="0" role="link" aria-describedby="pg1">{{parentUrl}}
+                  <span class="screen-reader">Selected</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li *ngFor="let link of Links let i=index" role="listitem" [ngClass]="{'active-listItem': i === pageNo}">
+             <div [ngClass]="{'active-glyphicon': i === pageNo ||  visited[i] }" class="glyphicon glyphicon-ok-circle">
+            </div>
+            <div style="margin-left: 15px">
+              <span [ngClass]="{'active': i === pageNo  }" attr.id="pg{{i+2}}">PAGE {{i+2}}</span>
+              <div>
+                 <a  tabindex="0" [ngClass]="{'active': i === pageNo }" *ngIf= " i <= 10" (click)="getPageInformation(link,i);visited[i] = true" role="link" tooltip="{{link}}"
+                      (keydown)="$event.keyCode === 13?getPageInformation(link,i):''"  attr.aria-describedby="pg{{i+2}}">{{link|sliceString}}
+                   <span class="screen-reader">Selected</span>
+                 </a><!--tooltip="{{link}}"|sliceString-->
+              </div>
+              <div>
+                 <a [ngClass]="{'active': i === pageNo }" *ngIf= "i> 10 && disableUrl === 'SuperUser' " tabindex="0" role="link" tooltip="{{link}}"
+                     attr.aria-describedby="pg{{i+2}}" (click)="getPageInformation(link,i);visited[i] = true" (keydown)="$event.keyCode === 13?getPageInformation(link,i):''" >{{link|sliceString}}
+                   <span class="screen-reader">Selected</span>
+                 </a>
+              </div>
+              <div>
+                  <a  *ngIf="i> 10 && disableUrl === 'DemoUser' " (click)="isClickable()" tabindex="0" role="link" tooltip="{{link}}"
+                        attr.aria-describedby="pg{{i+2}}"  (keydown)="$event.keyCode === 13?isClickable():''" >{{link|sliceString}}
+                    <span class="screen-reader">Selected</span>
+                  </a>
+              </div>
+            </div>
+          </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-9 right-pane" *ngIf="showErrorInfoPage && !showBugReport">
+      <div class="row">
+          <div role="heading" aria-level="1">
+            <h3 class="right-pane-heading pull-left" role="presentation">Summary</h3>
+         <!--   <div class="pull-right accessible-text">
+              <div tabindex="0"  [attr.aria-selected]="activeFont === 0" role="link" style="padding:8px 10px 0px" class="small-text" [ngClass]="{'active-font':activeFont === 0}" (click)="changeFont(0)" (keydown)="$event.keyCode === 13?'changeFont(0)':''">
+                <span aria-hidden="true"> A</span><span class="screen-reader">small font</span>
+              </div>
+              <div tabindex="0" [attr.aria-selected]="activeFont === 3" role="link" style="padding:5px 10px 0px !important;" class="medium-text" [ngClass]="{'active-font':activeFont === 3}" (click)="changeFont(3)" (keydown)="$event.keyCode === 13?'changeFont(3)':''">
+                <span aria-hidden="true"> A</span><span class="screen-reader">medium font</span>
+              </div>
+              <div tabindex="0" [attr.aria-selected]="activeFont === 6" role="link" style="padding:3px 10px 0px !important;" class="large-text" [ngClass]="{'active-font':activeFont === 6}" (click)="changeFont(6)" (keydown)="$event.keyCode === 13?'changeFont(6)':''">
+                <span aria-hidden="true"> A</span><span class="screen-reader">large font</span>
+              </div>
+            </div>-->
+          </div>
+      </div>
+      <div class="row info-overview" >
+        <div class="col-sm-1 metero-tiles"  ><!--style="border-right: 1px solid silver"-->
+          <div class="pact-data-heading" style="overflow:hidden">Findings</div>
+          <div>
+            <span class="findings-text">{{currentPageViolations}}</span>
+          </div>
+        </div>
+        <div class="col-sm-7 metero-tiles" style="width: 61.5% !important;" >
+          <div class="pact-data-heading">Current Page</div>
+          <div class="pact-data" tabindex="0" style="font-size:0.875em;height: 24px;overflow: hidden;" tooltip="{{url}}">{{url}}</div>
+        </div>
+        <div class="col-sm-2 metero-tiles"  style="display: block">
+          <div style="margin-top:20px;text-align:center">
+            <a  class="viewSourceCode" (click)="viewSource(url)" tabindex="0" role="link" (keydown)="$event.keyCode === 13?viewSource(url):''">View Source </a>
+          </div>
+        </div>
+        <div class="col-sm-2 images metero-tiles" >
+         <!-- <div class="pact-data-heading">Export Violations</div>-->
+          <div style="margin-top:20px">
+            <a  (click)="exportToExcel()" (keydown)="$event.keyCode === 13?exportToExcel():''" tabindex="0" role="link"><img src="assets/excel.png" alt="excel"  height="80%"/></a>
+          <!--  <img src="assets/word.png" alt="word" class="logo_img" height="80%" (click)="exportToPDF()"/>-->
+          </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12" style="padding:0px 10px !important;">
+          <h2 class="findings-heading">Findings</h2>
+          <!--<div style="float:right"><sup style="color:#A61F36">*</sup> <span style="font-size:0.775em">Select Bug to Assign</span>
+             <button class="create-bug"
+                     [disabled]="!(showCreateBug && (disableUrl === 'SuperUser'))" [attr.aria-disabled]="!(showCreateBug && (disableUrl === 'SuperUser'))"
+                     [ngClass]="{'disable-create-bug': !(showCreateBug && (disableUrl === 'SuperUser')), 'create-bug':showCreateBug && (disableUrl === 'SuperUser')}">
+                Assign Bug</button> &lt;!&ndash;(click)="createBug()"&ndash;&gt;
+          </div>-->
+          </div>
+        <div class="postnRel" id="table_div">
+        <table class="element-data-table" >
+          {{getChanges()}}
+          <caption class="screen-reader">Accessibility Violations Description</caption>
+          <thead *ngIf="searchResults.length > 0 " id="tableHeader">
+          <tr>
+            <th scope="col" *ngIf="(disableUrl === 'SuperUser')" class="col-xs-1" style="text-align: center">
+              <input type="checkbox"  [disabled]="searchResults.length <= 0" (click)="checkAll($event)" [checked]="checkedAll " aria-label="Select All"></th>
+            <th  scope="col" class="col-xs-2">Findings </th>
+            <th  scope="col" class="col-xs-3">Element Source </th>
+            <th scope="col" class="col-xs-1">WCAG 2.0</th>
+
+            <th scope="col" class="col-xs-1">Level
+              <span tabindex="0" class="glyphicon glyphicon-filter pull-right" aria-haspopup="true" [attr.aria-expanded]="showFilter" *ngIf="searchResults.length > 0"
+                    (keydown)="$event.keyCode === 13 ?showFilter = !showFilter:''" (click)="showFilter = !showFilter">
+                <span class="screen-reader">Filter Wcag 2.0 Level A and Level AA</span>
+              </span>
+              <div (mouseleave)="hideBox()" class="group-change-filter-list"  [ngClass]="{'show': !showFilter}">
+                  <div *ngFor="let item of errorDescription | unique:'level' let i = index" class="list-sub-data">
+                    <div class="action-checkbox">
+                      <p>
+                        <input id="{{item.level}}" type="checkbox" name="{{item.level}}"
+                               (click)="filteredLevel(item.level,'level',$event,index,item)"  [attr.Checked]="index <5 ?checked:null" />
+                        {{item.level === null || item.level === undefined ? "(Blanks)" :
+                        item.level}}</p>
+                    </div>
+                  </div>
+              </div>
+            </th>
+          <!--  <th class="col-xs-1">MAS</th>-->
+            <th class="col-xs-4">Recommended Solution</th>
+            <th style="display: none"></th>
+          </tr>
+          </thead>
+          <tbody   id="table_body">
+          <tr *ngFor="let ed of searchResults let i=index">
+            <td *ngIf="(disableUrl === 'SuperUser')" class="col-xs-1" style="text-align: center">
+              <input type="checkbox" [checked]="ed.checked" (click)="rowCheck($event,ed,i)"
+                     attr.aria-label="violation {{i+1}}"  attr.aria-describedby="FD{{i+1}} ES{{i+1}} GD{{i+1}} LV{{i+1}} RL{{i+1}}"
+                     (keydown)="$event.keyCode === 13 ? rowCheck($event,ed,i):''" [disabled]="assigned[i]">
+            </td>
+            <td class="col-xs-2" attr.id="FD {{i+1}}">
+              <span>{{ed.ERROR}}
+              </span>
+            </td>
+            <td class="col-xs-3" attr.id="ES{{i+1}}">{{ed.TagName}}</td>
+            <td class="col-xs-1" attr.id="GD{{i+1}}" style="text-align:center">{{ed.Guideline}}</td>
+            <td class="col-xs-1" attr.id="LV{{i+1}}" style="text-align:center">
+              <h4 class="impact-level">{{ed.level}}</h4>
+            </td>
+           <!-- <td class="col-xs-1">{{ed.MAS}}</td>-->
+            <td  class="col-xs-4" attr.id="RL{{i+1}}">
+              <ul class="recommendation-list" role="list">
+                <li role="listitem">{{ed.RECOMMENDATION}}</li>
+              </ul>
+            </td>
+            <td style="display: none;"></td>
+          </tr>
+          </tbody >
+          <tbody  *ngIf="searchResults.length <= 0  && !showBugReport ">
+          <div class="noFindings" >
+           <!-- <div style="font-size: 1.75em;color:#A61F36">Awesome !</div>-->
+            <div>There are no findings in the current WebPage</div>
+          </div>
+          </tbody>
+        </table>
+       <!-- <table *ngIf="searchResults.length <= 0" class="element-data-table" style="text-align:center">
+          <caption class="screen-reader">Accessibility Violations Description</caption>
+         &lt;!&ndash; <img src="assets/no_findings.png" alt="No Findings Found" style="margin-top: 70px;"/>&ndash;&gt;
+          <div style="font-size: 22px;padding: 10px;">There are no findings in the current WebPage</div>
+        </table>-->
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showBugReport" class="loader">
+      <img src="assets/loading.gif" alt="loading" />
+    </div>
+    <div class="col-sm-9 right-pane" *ngIf="showBugTracking">
+      <app-create-bug  (getBugStatus)="getBugStatus($event)"></app-create-bug>
+    </div>
+    <div  class="col-sm-9 right-pane" *ngIf="showIntegrationPage">
+      <app-integrate-jira *ngIf="showIntegrationPage"></app-integrate-jira>
+    </div>
+  </div>
+<footer class="footer" *ngIf="!isLoading" role="contentinfo">
+  Copyright &copy; 2017 People Tech
+</footer>
+<div>
+  <modal #viewSourceModal class="loginModal" [keyboard]="false" [backdrop]="'static'" [animation]="false" (onDismiss)="closeModal()">
+    <modal-header [show-close]="true" (click)="closeModal()">
+      <h4 class="modal-title pull-left">Source Code</h4>
+    </modal-header>
+    <modal-body>
+
+        <pre class="pull-left">
+        {{htmlContent}}
+        </pre>
+
+    </modal-body>
+  </modal>
+</div>
+<div *ngIf="isLoading" class="loaderComponent" [attr.aria-live]="assertive">
+  <img src="assets/loading.gif" alt="loading" />
+</div>

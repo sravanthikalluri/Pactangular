@@ -1,0 +1,12 @@
+[{
+  "type":"SuperUser",
+   "username":"SuperUser",
+  "password":"super@123",
+  "token":"token_superuser"
+},
+  {
+    "type":"DemoUser",
+    "username":"DemoUser",
+    "password":"demo@123",
+    "token":"token_demouser"
+  }]

@@ -1,0 +1,26 @@
+<div role="banner" class="home-header" *ngIf="!isDisabled">
+<div  class="home-title">Logged as <span >{{username}}</span></div>
+  <span tabindex="0" role="link" (keydown)="$event.keyCode == 13 ? logout():''" (click)="logout()" class="glyphicon glyphicon-off">
+    <span class="screen-reader">Logout</span>
+  </span>
+</div>
+<div>
+<div class="row" style="margin:100px 0px !important;text-align: center">
+  <img src="assets/pact_logo.png" alt="accessibility pact logo" height="55%" width="25%"/>
+  <div role="main">
+    <div class="row">
+      <div class="search-bar">
+        <input type="text" placeholder="Enter Website Url" class="form-control" [(ngModel)]="url" aria-label="Enter Website Url" (keydown)="$event.keyCode === 13 && !isDisabled && url?navigateToPact(url):''" />
+        <button [ngClass]="{'disable-button': isDisabled || !url }" type="button" class="btn btn-default btn-md" (click)="navigateToPact(url)" [disabled]="isDisabled || !url" [attr.aria-disabled]="isDisabled && url">GO</button>
+      </div>
+    </div>
+    <div class="login-link" *ngIf="isDisabled">
+     <a class="loginLink" href="#"(click)="login()" (keydown)="$event.keyCode === 13?login():''" tabindex="0" id="loginButton">Login</a><span> to utilize our services </span>
+    </div>
+  </div>
+</div>
+<app-login *ngIf="showLogin" (getUserType)="getUserType($event)"></app-login>
+</div>
+<div class="footer" role="contentinfo">
+  Copyright &copy; 2017 People Tech
+</div>

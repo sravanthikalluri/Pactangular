@@ -1,0 +1,176 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background: #f5f5f5;
+  font-family: 'Open Sans' !important;
+  font-size:100%;
+}
+html {
+  font-size:1em;
+}
+/*.table>tbody>tr>td{
+  width:20% !important;
+  padding:10px 15px !important;
+}*/
+.table-bordered>thead>tr>th {
+/*  padding:10px 15px !important;*/
+  background:whitesmoke;
+}
+.form-control {
+  width:auto !important;
+}
+
+.pagination {
+  margin:0px !important;
+  border-radius:0px !important;
+}
+.caret {
+  border-top: 10px dashed !important;
+  border-right: 10px solid transparent !important;
+  border-left: 10px solid transparent !important;
+}
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover {
+  border:none !important;
+  background: #A61F36 !important;
+}
+.sc-default-spinner {
+  width:25px !important;
+  height:25px !important;
+  background: #A61F36 !important;
+}
+.loginModal .modal-dialog {
+  width: 690px;
+  height: 465px;
+  margin: 100px auto;
+}
+.loginModal .modal-header {
+  border-bottom: none !important;
+}
+.loginModal .modal-body {
+ height:350px !important;
+  display: flex;
+}
+.modal-body .pull-right {
+  width:100% !important;
+}
+.bugModal .modal-footer {
+  border-top:none !important;
+}
+.bugModal .modal-footer button {
+  color: white;
+  background: #A61F36 !important;
+  border: none;
+  padding: 5px 10px;
+  width: auto;
+}
+.bugSelect{
+  margin: 0 auto;
+  background-color: grey;
+  height: 80px;
+  text-align: center;
+  padding-top: 23px;
+  color: white;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+.toast-bottom-full-width {
+  width:75% !important;
+}
+a {
+  text-decoration: underline;
+}
+/*.sc-background {
+  height:1000px !important;
+}*/
+.tooltip {
+  word-break: break-all;
+}
+
+
+div.pages-links ul {
+  padding-left: 30px !important;
+}
+
+div.pages-links ul li {
+  margin: 0px !important;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Open Sans';
+  font-weight: 600;
+}
+/*
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+!* Track *!
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+!* Handle *!
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(255,0,0,0.8);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255,0,0,0.4);
+}
+*/
+::-webkit-scrollbar {
+  width: 7px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #CCCCCC;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+/*::-webkit-scrollbar-thumb:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}*/
+::-webkit-scrollbar-track {
+/*  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;*/
+}
+/*::-webkit-scrollbar-track:hover {
+  background: #666666;
+}*/
+/*::-webkit-scrollbar-track:active {
+  background: #333333;
+}*/
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.progress {
+  height: 6px;
+  width: 90%;
+  background: #82172A;
+  margin-bottom:0px !important;
+  border-radius: 0px !important;
+}
+.progress-bar {
+  color:white;
+  background: white;
+
+}
+.close {
+  opacity:2 !important;
+  color:#232B2D !important;
+  margin:10px;
+  text-decoration: none;
+}
+.scroll-content {
+  overflow-y: auto !important;
+}
